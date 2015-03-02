@@ -48,7 +48,7 @@ node /as-mgt/ inherits base {
     }
 
   $docroot = "/mnt/${server_ip}/wso2as-5.2.1"
-
+  class {'python_agent':}
   class {'appserver':
 
         version            => '5.2.1',
@@ -70,7 +70,7 @@ node /as-mgt/ inherits base {
   require stratos_base 
   require java	
 
-  Class['stratos_base'] -> Class['java'] -> Class['appserver']
+  Class['stratos_base'] -> Class['java'] -> Class['appserver'] ~> Class['python_agent']
 }
 
 node /as-worker/ inherits base {
@@ -80,7 +80,7 @@ node /as-worker/ inherits base {
     }
 
   $docroot = "/mnt/${server_ip}/wso2as-5.2.1"
-
+  class {'python_agent':}
   class {'appserver':
 
         version            => '5.2.1',
@@ -102,5 +102,5 @@ node /as-worker/ inherits base {
   require stratos_base 
   require java	
 
-  Class['stratos_base'] -> Class['java'] -> Class['appserver']
+  Class['stratos_base'] -> Class['java'] -> Class['appserver'] ~> Class['python_agent']
 }
